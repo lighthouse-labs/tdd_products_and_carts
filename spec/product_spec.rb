@@ -1,34 +1,20 @@
 require_relative "spec_helper"
+# rspec spec/product_spec.rb
+describe "Product" do
 
-# Test that I can use the initializer
-muffin = Product.new("muffin", 199)
-# Make sure these values are stored inside the object
+  it "should be created with a name and price" do
+    muffin = Product.new("muffin", 199)
+    expect(muffin.name).to eq("muffin")
+    expect(muffin.price_in_cents).to eq(199)
+  end
 
-if muffin.name != "muffin"
-  @fail = true
-  puts "FAIL! Name should be 'muffin' but got #{muffin.name} instead"
-end
+  it "should have a default price of 0" do
+    muffin = Product.new("muffin")
+    expect(muffin.price_in_cents).to eq(0)
+  end
 
-if muffin.price_in_cents != 199
-  @fail = true
-  puts "FAIL! Name should be '199' but got #{muffin.price_in_cents} instead"
-end
+  it "should not create a product without a name" do
+    expect { Product.new }.to raise_error ArgumentError
+  end
 
-if !@fail
-  puts "PASSED"
-end
-
-
-# Test that price defaults to 0
-@fail = false
-coffee = Product.new("coffee")
-
-if coffee.price_in_cents != 0
-  @fail = true
-  puts "FAIL! Price should default to 0, but I got #{coffee.price_in_cents}"
-end
-
-
-if !@fail
-  puts "PASSED"
 end

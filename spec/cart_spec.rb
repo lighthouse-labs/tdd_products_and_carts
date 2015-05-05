@@ -63,8 +63,15 @@ describe "Cart" do
     end
 
     it "should clear the cart when the amount was sufficient" do
-      book = Product.new(name: "Book", price_in_cents: 1200)
-      @cart.add_product(book)
+      # book = Product.new(name: "Book", price_in_cents: 1200)
+      # @cart.add_product(book)
+
+      # For the remainder of this test case
+      # any time #total_with_tax is called on @cart
+      # return 1320
+      # AND if #total_with_tax is not called in this test case at all, fail the test case
+      # expect(@cart).to receive(:total_with_tax).and_return(1320)
+      # total_with_tax = 1320
       @cart.checkout(1321)
       expect(@cart.products).to eql []
     end

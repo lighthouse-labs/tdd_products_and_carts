@@ -48,4 +48,33 @@ describe "Cart" do
     end
   end
 
+  describe "#checkout" do
+
+    it "should return the change due (negative integer) to the customer" do
+      book = Product.new(name: "Book", price_in_cents: 1200)
+      @cart.add_product(book)
+      expect(@cart.checkout(1321)).to eql -1
+    end
+
+    it "should return the balance owing (positive integer) if the customer did not pay enough" do
+      book = Product.new(name: "Book", price_in_cents: 1200)
+      @cart.add_product(book)
+      expect(@cart.checkout(1319)).to eql 1
+    end
+
+    it "should clear the cart when the amount was sufficient" do
+      book = Product.new(name: "Book", price_in_cents: 1200)
+      @cart.add_product(book)
+      @cart.checkout(1321)
+      expect(@cart.products).to eql []
+    end
+
+    it "should apply payments to balance owing if previous payment was made" do
+      book = Product.new(name: "Book", price_in_cents: 1200)
+      @cart.add_product(book)
+      @cart.checkout(600)
+      expect(@cart.checkout(800)).to eql -80
+    end
+  end
+
 end

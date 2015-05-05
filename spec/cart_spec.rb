@@ -24,4 +24,27 @@ describe "Cart" do
       expect(cart.products).to include product
     end
   end
+
+  describe "#total_with_tax" do
+
+    before :each do
+      # ruby code here runs before every test case
+      @cart = Cart.new
+    end
+    # another way of accomplishing the above
+    # let(:cart) { Cart.new }
+
+    it "should return 0 if cart is empty" do
+      expect(@cart.total_with_tax).to eql 0
+    end
+
+    it "should return the total with tax if there are products" do
+      book = Product.new(name: "Book", price_in_cents: 1200)
+      pencil = Product.new(name: "Pencil", price_in_cents: 100)
+      @cart.add_product(book)
+      @cart.add_product(pencil)
+      expect(@cart.total_with_tax).to eql 1430
+    end
+  end
+
 end

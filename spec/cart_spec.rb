@@ -13,4 +13,15 @@ describe "Cart" do
       expect(cart.products).to eql []
     end
   end
+
+  describe "#add_product" do
+
+    it "should add a product to the list of products" do
+      product = Product.new(name: "Book", price_in_cents: 1299)
+      cart = Cart.new
+      cart.add_product(product)
+      # expect(cart.products.include?(product)).to eql true
+      expect(cart.products).to include product
+    end
+  end
 end

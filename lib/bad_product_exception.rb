@@ -1,0 +1,3 @@
+class BadProductException < StandardError
+end
+

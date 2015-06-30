@@ -33,8 +33,11 @@ describe "Cart" do
       # Setup
       book = Product.new("Book", 100)
       mouse = Product.new("Mouse", 900)
-      cart.add_product(book)
-      cart.add_product(mouse)
+      # Force Cart#products to return the book and mouse
+      expect(cart).to receive(:products).and_return([book, mouse])
+      # When cart.products is called in the next few lines
+      # Don't run #products
+      # Instead return [book, mouse]
       # Excpctations
       expect(cart.total_with_tax).to eql 1120
     end

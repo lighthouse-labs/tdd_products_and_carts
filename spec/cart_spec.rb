@@ -1,8 +1,9 @@
 require_relative "spec_helper"
 
 describe "Cart" do
+  let(:cart) { Cart.new }  # runs block before every it test case. Assigns result of block to local variable
+
   describe "#add_product" do
-    let(:cart) { Cart.new }  # runs block before every it test case. Assigns result of block to local variable
 
     it "should have an empty list of products for a new cart" do
       # Setup
@@ -20,6 +21,22 @@ describe "Cart" do
       cart.add_product(product)
       # Expectations
       expect(cart.products).to eql [product]
+    end
+  end
+
+  describe "#total_with_tax" do
+    it "should return 0 if there are no products in the cart" do
+      expect(cart.total_with_tax).to eql 0
+    end
+
+    it "should return the total with tax of 12%" do
+      # Setup
+      book = Product.new("Book", 100)
+      mouse = Product.new("Mouse", 900)
+      cart.add_product(book)
+      cart.add_product(mouse)
+      # Excpctations
+      expect(cart.total_with_tax).to eql 1120
     end
   end
 end

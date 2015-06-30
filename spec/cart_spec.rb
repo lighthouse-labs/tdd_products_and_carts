@@ -2,7 +2,7 @@ require_relative "spec_helper"
 
 describe "Cart" do
   describe "#add_product" do
-    let :cart, { Cart.new }  # runs block before every it test case. Assigns result of block to local variable
+    let(:cart) { Cart.new }  # runs block before every it test case. Assigns result of block to local variable
 
     it "should have an empty list of products for a new cart" do
       # Setup
